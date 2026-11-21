@@ -10,59 +10,49 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#F8FAFC",
-        foreground: "#0F172A",
-        card: {
-          DEFAULT: "#FFFFFF",
-          foreground: "#0F172A",
-          border: "#E2E8F0",
+        paper: "#07080B",
+        surface: "#0E1016",
+        elevated: "#151822",
+        ink: "#F4F5F7",
+        signal: {
+          DEFAULT: "#FF5A1F",
+          hover: "#FF7340",
+          glow: "rgba(255, 90, 31, 0.28)",
         },
-        popover: {
-          DEFAULT: "#FFFFFF",
-          foreground: "#0F172A",
+        obsidian: {
+          bg: "#07080B",
+          surface: "#0E1016",
+          elevated: "#151822",
+          sidebar: "#0A0C11",
+          border: "rgba(255, 255, 255, 0.08)",
+          muted: "#9CA3B4",
+          subtle: "#646C7E",
         },
-        primary: {
-          DEFAULT: "#2563EB", // Royal Blue
-          foreground: "#FFFFFF",
-          hover: "#1D4ED8",
-        },
-        secondary: {
-          DEFAULT: "#0284C7", // Sky Blue
-          foreground: "#FFFFFF",
-          hover: "#0369A1",
-        },
-        muted: {
-          DEFAULT: "#F1F5F9",
-          foreground: "#64748B",
-        },
-        accent: {
-          DEFAULT: "#F8FAFC",
-          foreground: "#0F172A",
-        },
-        destructive: {
-          DEFAULT: "#DC2626",
-          foreground: "#FFFFFF",
-        },
-        success: {
-          DEFAULT: "#16A34A",
-          foreground: "#FFFFFF",
-        },
-        warning: {
-          DEFAULT: "#D97706",
-          foreground: "#FFFFFF",
-        },
-        border: "#E2E8F0",
-        input: "#E2E8F0",
-        ring: "#2563EB",
-      },
-      borderRadius: {
-        lg: "0.5rem",
-        md: "calc(0.5rem - 2px)",
-        sm: "calc(0.5rem - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "monospace"],
+        display: ["var(--font-display)", "Space Grotesk", "sans-serif"],
+        sans: ["var(--font-sans)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+      },
+      keyframes: {
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(14px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "aurora-drift": {
+          "0%": { transform: "translate3d(0px, 0px, 0) scale(1)" },
+          "50%": { transform: "translate3d(3%, -4%, 0) scale(1.06)" },
+          "100%": { transform: "translate3d(-2%, 3%, 0) scale(0.98)" },
+        },
+      },
+      animation: {
+        "fade-up": "fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both",
+        marquee: "marquee 38s linear infinite",
+        "aurora-drift": "aurora-drift 18s ease-in-out infinite alternate",
       },
     },
   },
