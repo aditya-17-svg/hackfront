@@ -3,125 +3,488 @@
 @tailwind utilities;
 
 :root {
-  --paper: #0A0A0B;
-  --ink: #EDEDF0;
-  --signal: #3DDC97;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --bx-bg: #080808;
+  --bx-bg-alt: #0a0a0a;
+  --bx-darkest: #090909;
+  --bx-dark: #0c0c0c;
+  --bx-surface: #0d0d0d;
+  --bx-chart-surface: #030303;
+  --bx-border: #1a1a1a;
+  --bx-darker: #181818;
+  --bx-ink: #f2f2f0;
+  --bx-on-ink: #0c0c0c;
+  --bx-prose-ink: #c6c6c2;
+  --bx-text-secondary: #858582;
+  --bx-muted: #82827f;
+  --bx-muted-soft-light: #585857;
+  --bx-accent: #ff6901;
+  --bx-accent-hover: #ff8533;
+  --bx-on-accent: #0c0c0c;
+  --bx-success: #4ade80;
+  --bx-warning: #fbbf24;
+  --bx-danger: #ff6b6b;
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
 }
 
-@layer base {
-  html {
-    @apply antialiased;
-  }
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  ::selection {
-    background: var(--signal);
-    color: #0A0A0B;
-  }
-  :focus-visible {
-    outline: 2px solid var(--signal);
-    outline-offset: 2px;
-  }
+html {
+  color-scheme: dark;
+  background-color: #080808;
 }
 
-@layer components {
-  .nav-indicator {
-    transition: transform 0.35s var(--ease-out), height 0.35s var(--ease-out), opacity 0.2s ease;
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-  .shimmer {
-    background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
-    background-size: 200% 100%;
-    animation: shimmer 1.6s linear infinite;
-  }
-  .spotlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(61, 220, 151, 0.12), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .spotlight:hover::before {
-    opacity: 1;
-  }
-  .spotlight > * {
-    position: relative;
-    z-index: 1;
-  }
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
+body {
+  background-color: #080808;
+  color: #f2f2f0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .animate-fade-up {
-    animation: fade-up 0.5s var(--ease-out) both;
-  }
-  .animate-indeterminate {
-    animation: indeterminate 1.4s var(--ease-out) infinite;
-  }
-  .animate-marquee {
-    animation: marquee 38s linear infinite;
-  }
+/* Precision Blackbox Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: none; }
+::-webkit-scrollbar-track {
+  background: #080808;
 }
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to   { background-position: -200% 0; }
-}
-@keyframes indeterminate {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(300%); }
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2e;
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
+  background: #222222;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
+::selection {
+  background-color: rgba(255, 105, 1, 0.32);
+  color: #ffffff;
+}
+
+/* ============================================================================
+   EXACT BLACKBOX.AI INDUSTRIAL ARCHITECTURAL PATTERNS
+   ============================================================================ */
+
+/* Left & right vertical diagonal-hatched rail gutters */
+.bx-rail-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.055) 0px,
+    rgba(255, 255, 255, 0.055) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+/* Safety-orange pre-footer diagonal rail hatch */
+.bx-rail-hatch-orange {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(12, 12, 12, 0.16) 0px,
+    rgba(12, 12, 12, 0.16) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+/* Full-bleed safety-orange grid banner (// NEXT STEP) */
+.bx-orange-grid {
+  background-color: #ff6901;
+  background-image:
+    linear-gradient(to right, rgba(12, 12, 12, 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12, 12, 12, 0.11) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Atmospheric dark desert-horizon backdrop behind hero terminal showcase */
+.bx-hero-backdrop {
+  background:
+    radial-gradient(ellipse 75% 42% at 50% 8%, rgba(168, 128, 104, 0.36) 0%, rgba(72, 62, 74, 0.24) 38%, transparent 72%),
+    radial-gradient(ellipse 60% 35% at 82% 14%, rgba(255, 145, 77, 0.22) 0%, transparent 65%),
+    linear-gradient(180deg, #3c3a44 0%, #2b2421 22%, #181311 54%, #0b0a0a 100%);
+}
+
+/* Active benchmark tab subtle horizontal scanlines */
+.bx-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.045) 0px,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Dotted-matrix benchmark bars */
+.bx-dotted-bar-orange {
+  background-image: radial-gradient(circle, rgba(255, 105, 1, 0.92) 1.15px, transparent 1.25px);
+  background-size: 4.5px 4.5px;
+}
+
+.bx-dotted-bar-muted {
+  background-image: radial-gradient(circle, rgba(242, 242, 240, 0.42) 1.15px, transparent 1.25px);
+  background-size: 4.5px 4.5px;
+}
+
+/* Dashed architectural divider */
+.bx-divider-dashed {
+  border-top: 1px dashed #242424;
+}
+
+/* Corner L-ticks for Compliance / Standards cards */
+.bx-corner-ticks {
+  position: relative;
+}
+.bx-corner-ticks::before,
+.bx-corner-ticks::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  pointer-events: none;
+}
+.bx-corner-ticks::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid #585857;
+  border-left: 1px solid #585857;
+}
+.bx-corner-ticks::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid #585857;
+  border-right: 1px solid #585857;
+}
+
+/* Architectural 1px grid */
+.bg-atelier-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.awwwards-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+}
+
+.btn-signal-glow {
+  transition: transform 220ms var(--ease-editorial), box-shadow 220ms var(--ease-editorial), background-color 180ms ease;
+}
+.btn-signal-glow:hover {
+  box-shadow: 0 0 22px -4px rgba(255, 105, 1, 0.45);
+}
+
+/* Pointer-tracked spotlight border */
+.spotlight {
+  position: relative;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 105, 1, 0.09),
+    rgba(255, 255, 255, 0.02) 45%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 240ms var(--ease-editorial);
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    300px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 105, 1, 0.5),
+    rgba(255, 255, 255, 0.14) 45%,
+    transparent 75%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 240ms var(--ease-editorial);
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight:hover::before,
+.spotlight:hover::after {
+  opacity: 1;
+}
+.spotlight > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Scroll-driven reveal */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 540ms var(--ease-editorial), transform 540ms var(--ease-editorial);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Shimmer Skeleton */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ============================================================================
+   SCREEN-ONLY BLACKBOX DARK HARMONIZATION FOR ALL SUB-VIEWS
+   Works for BOTH warm-paper and slate-light TierLens sub-tabs.
+   Scoped to @media screen so printable Audit Reports stay crisp white!
+   ============================================================================ */
+@media screen {
+  .tierlens-atelier select,
+  .tierlens-atelier input,
+  .tierlens-atelier textarea {
+    color-scheme: dark;
+  }
+  .tierlens-atelier select option {
+    background-color: #0c0c0c;
+    color: #f2f2f0;
+  }
+
+  /* Surfaces (warm + slate legacy) */
+  .tierlens-atelier .bg-white,
+  .tierlens-atelier .bg-\[\#FFFFFF\] {
+    background-color: #0c0c0c !important;
+  }
+  .tierlens-atelier .bg-\[\#FFFFFF\]\/95,
+  .tierlens-atelier .bg-white\/90 {
+    background-color: rgba(12, 12, 12, 0.94) !important;
+    backdrop-filter: blur(12px);
+  }
+  .tierlens-atelier .bg-slate-50,
+  .tierlens-atelier .bg-gray-50,
+  .tierlens-atelier .bg-\[\#FAF9F6\],
+  .tierlens-atelier .bg-\[\#FAF9F5\] {
+    background-color: #0a0a0a !important;
+  }
+  .tierlens-atelier .bg-\[\#FAF9F6\]\/80,
+  .tierlens-atelier .bg-\[\#FAF9F5\]\/60,
+  .tierlens-atelier .bg-\[\#FAF9F5\]\/40 {
+    background-color: rgba(12, 12, 12, 0.78) !important;
+  }
+  .tierlens-atelier .bg-slate-100,
+  .tierlens-atelier .bg-gray-100,
+  .tierlens-atelier .bg-\[\#F5F3EE\],
+  .tierlens-atelier .bg-\[\#F0EEE8\],
+  .tierlens-atelier .bg-\[\#EEECE5\] {
+    background-color: #111111 !important;
+  }
+  .tierlens-atelier .bg-\[\#EEECE5\]\/30 {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+  }
+  .tierlens-atelier .bg-\[\#252525\] {
+    background-color: #080808 !important;
+    border: 1px solid #1a1a1a;
+  }
+  .tierlens-atelier .bg-\[\#252525\]\/5 {
+    background-color: rgba(8, 8, 8, 0.75) !important;
+  }
+  .tierlens-atelier .bg-\[\#252525\]\/60 {
+    background-color: rgba(0, 0, 0, 0.84) !important;
+  }
+  .tierlens-atelier .bg-\[\#F8E9DF\],
+  .tierlens-atelier .bg-\[\#F8E9DF\]\/70,
+  .tierlens-atelier .bg-\[\#F8E9DF\]\/40,
+  .tierlens-atelier .bg-\[\#F8E9DF\]\/30 {
+    background-color: rgba(255, 105, 1, 0.13) !important;
+  }
+  .tierlens-atelier .bg-\[\#EAF4EE\],
+  .tierlens-atelier .bg-\[\#EBF5F0\],
+  .tierlens-atelier .bg-\[\#EAF4EE\]\/60 {
+    background-color: rgba(74, 222, 128, 0.11) !important;
+  }
+  .tierlens-atelier .bg-\[\#FCEEEF\],
+  .tierlens-atelier .bg-\[\#FBEBEA\] {
+    background-color: rgba(255, 107, 107, 0.12) !important;
+  }
+  .tierlens-atelier .bg-\[\#FDF6EC\],
+  .tierlens-atelier .bg-\[\#FBF4E8\] {
+    background-color: rgba(251, 191, 36, 0.12) !important;
+  }
+  .tierlens-atelier .bg-\[\#EEF4FB\],
+  .tierlens-atelier .bg-blue-50 {
+    background-color: rgba(255, 105, 1, 0.1) !important;
+  }
+  .tierlens-atelier .bg-blue-600,
+  .tierlens-atelier .bg-\[\#D97745\] {
+    background-color: #ff6901 !important;
+    color: #0c0c0c !important;
+  }
+  .tierlens-atelier .hover\:bg-blue-700:hover,
+  .tierlens-atelier .hover\:bg-\[\#B95E32\]:hover {
+    background-color: #ff8533 !important;
+  }
+  .tierlens-atelier .hover\:bg-slate-100:hover,
+  .tierlens-atelier .hover\:bg-slate-50:hover,
+  .tierlens-atelier .hover\:bg-\[\#EEECE5\]:hover,
+  .tierlens-atelier .hover\:bg-\[\#EAE7DF\]:hover,
+  .tierlens-atelier .hover\:bg-\[\#FAF9F6\]:hover,
+  .tierlens-atelier .hover\:bg-\[\#FAF9F5\]\/60:hover {
+    background-color: #181818 !important;
+  }
+
+  /* Badges */
+  .tierlens-atelier .bg-blue-100,
+  .tierlens-atelier .bg-sky-100 {
+    background-color: rgba(56, 189, 248, 0.13) !important;
+  }
+  .tierlens-atelier .bg-indigo-50,
+  .tierlens-atelier .bg-purple-100 {
+    background-color: rgba(167, 139, 250, 0.13) !important;
+  }
+  .tierlens-atelier .bg-emerald-50,
+  .tierlens-atelier .bg-green-100 {
+    background-color: rgba(74, 222, 128, 0.12) !important;
+  }
+  .tierlens-atelier .bg-rose-100,
+  .tierlens-atelier .bg-red-100 {
+    background-color: rgba(255, 107, 107, 0.14) !important;
+  }
+  .tierlens-atelier .bg-orange-100,
+  .tierlens-atelier .bg-amber-100,
+  .tierlens-atelier .bg-yellow-100 {
+    background-color: rgba(251, 191, 36, 0.14) !important;
+  }
+  .tierlens-atelier .bg-slate-200 {
+    background-color: #181818 !important;
+  }
+
+  /* Hairline Borders */
+  .tierlens-atelier .border-slate-200,
+  .tierlens-atelier .border-slate-300,
+  .tierlens-atelier .border-gray-200,
+  .tierlens-atelier .border-\[\#E6E2D9\],
+  .tierlens-atelier .border-\[\#D8D4C9\],
+  .tierlens-atelier .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+  .tierlens-atelier .divide-\[\#E6E2D9\] > :not([hidden]) ~ :not([hidden]) {
+    border-color: #1a1a1a !important;
+  }
+  .tierlens-atelier .border-\[\#E6E2D9\]\/40,
+  .tierlens-atelier .border-\[\#E6E2D9\]\/50,
+  .tierlens-atelier .border-\[\#E6E2D9\]\/60,
+  .tierlens-atelier .border-\[\#E6E2D9\]\/80 {
+    border-color: rgba(26, 26, 26, 0.85) !important;
+  }
+  .tierlens-atelier .border-blue-200,
+  .tierlens-atelier .border-\[\#F1D5C4\],
+  .tierlens-atelier .border-\[\#D97745\],
+  .tierlens-atelier .border-\[\#D97745\]\/30,
+  .tierlens-atelier .border-\[\#D97745\]\/40,
+  .tierlens-atelier .border-\[\#D97745\]\/50,
+  .tierlens-atelier .border-\[\#D97745\]\/60 {
+    border-color: rgba(255, 105, 1, 0.42) !important;
+  }
+  .tierlens-atelier .border-\[\#CDE5D8\],
+  .tierlens-atelier .border-\[\#36865A\]\/20,
+  .tierlens-atelier .border-\[\#36865A\]\/30,
+  .tierlens-atelier .border-\[\#36865A\]\/40 {
+    border-color: rgba(74, 222, 128, 0.3) !important;
+  }
+  .tierlens-atelier .border-\[\#F5C6C3\],
+  .tierlens-atelier .border-\[\#C6534B\]\/30 {
+    border-color: rgba(255, 107, 107, 0.32) !important;
+  }
+  .tierlens-atelier .border-\[\#F5DFBF\],
+  .tierlens-atelier .border-indigo-200,
+  .tierlens-atelier .border-sky-200 {
+    border-color: #242424 !important;
+  }
+
+  /* Typography */
+  .tierlens-atelier .text-slate-900,
+  .tierlens-atelier .text-slate-800,
+  .tierlens-atelier .text-gray-900,
+  .tierlens-atelier .text-\[\#252525\],
+  .tierlens-atelier .text-blue-900,
+  .tierlens-atelier .text-indigo-900,
+  .tierlens-atelier .text-emerald-900 {
+    color: #f2f2f0 !important;
+  }
+  .tierlens-atelier .text-slate-700,
+  .tierlens-atelier .text-slate-600,
+  .tierlens-atelier .text-gray-600,
+  .tierlens-atelier .text-\[\#6B6B65\] {
+    color: #858582 !important;
+  }
+  .tierlens-atelier .text-slate-500,
+  .tierlens-atelier .text-slate-400,
+  .tierlens-atelier .text-\[\#96948D\] {
+    color: #7a7a78 !important;
+  }
+  .tierlens-atelier .text-blue-600,
+  .tierlens-atelier .text-\[\#D97745\],
+  .tierlens-atelier .text-\[\#B95E32\] {
+    color: #ff6901 !important;
+  }
+  .tierlens-atelier .text-\[\#36865A\] {
+    color: #4ade80 !important;
+  }
+  .tierlens-atelier .text-\[\#C6534B\] {
+    color: #ff6b6b !important;
+  }
+  .tierlens-atelier .text-\[\#C58A35\] {
+    color: #fbbf24 !important;
+  }
+  .tierlens-atelier .text-\[\#557DAA\],
+  .tierlens-atelier .text-blue-700,
+  .tierlens-atelier .text-blue-800,
+  .tierlens-atelier .text-sky-700,
+  .tierlens-atelier .text-sky-800,
+  .tierlens-atelier .text-indigo-700 {
+    color: #7dd3fc !important;
+  }
+  .tierlens-atelier .text-purple-700 {
+    color: #c4b5fd !important;
+  }
+  .tierlens-atelier .text-rose-700 {
+    color: #fda4af !important;
+  }
+  .tierlens-atelier .text-amber-900,
+  .tierlens-atelier .text-orange-800,
+  .tierlens-atelier .text-yellow-800 {
+    color: #fcd34d !important;
+  }
+  .tierlens-atelier .hover\:text-\[\#252525\]:hover {
+    color: #ffffff !important;
+  }
+}
+
+/* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
   .reveal {
-    opacity: 1;
-    transform: none;
-  }
-  .animate-marquee {
-    animation: none;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
